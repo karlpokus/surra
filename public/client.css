@@ -1,0 +1,63 @@
+@import 'https://fonts.googleapis.com/css?family=Inconsolata';
+body {
+  margin:0;
+  padding:20px;
+}
+body, input {
+  font-family: 'Inconsolata', monospace;
+  font-size:14px;
+}
+.wrapper {
+  max-width:750px;
+  margin:0 auto;
+}
+h1 {
+  border-bottom:1px solid #222;
+  margin:0;
+  padding:0 0 10px 0;
+  font-size:24px;
+  font-weight:400;
+}
+h1 span {
+  color:#aaa;
+  float: right;
+}
+.box {
+  display:inline-block;
+  box-sizing:border-box;
+}
+.chat {
+  width:70%;
+  float:left;
+  padding:0 20px 0 0;
+}
+.users {
+  width:30%;
+}
+.sub-header {
+  background:#222;
+  color:#fff;
+  display:inline-block;
+  margin:0;
+  padding:2px 5px;
+}
+.content {}
+input {
+  margin:0;
+  border:none;
+  border-top:1px solid #222;
+  box-sizing:border-box;
+  padding:20px;
+  width:100%;
+  position:fixed;
+  bottom:0;
+  left:0;
+  text-align:center;
+}
+input:focus {
+  outline:none;
+}
+input::selection {
+  background:#222;
+  color:#fff;
+}
