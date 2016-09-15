@@ -18,7 +18,7 @@ h1 {
   font-size:24px;
   font-weight:400;
 }
-h1 span {
+h1 .username {
   color:#aaa;
   float: right;
 }
