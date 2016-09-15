@@ -4,10 +4,21 @@ function init() {
 
 var userList = [];
 
+var users = {
+  el: '.users .content',
+  render: function(data) {
+    $(this.el).empty();
+    data.forEach(function(name){
+      var $p = $('<p/>').text(name);
+      $(this.el).append($p);
+    }, this);
+  }
+};
+
 var user = {
-  el: 'h1',
+  el: 'h1 .username',
   render: function(name) {
-    $(this.el).append($('<span/>').text(name));
+    $(this.el).text(name);
   }
 };
 
@@ -21,7 +32,7 @@ var chat = {
     if (type === 'fyi') {
       $p.css('color', '#aaa');
     }
-    $(this.el).append($p);
+    $(this.el).prepend($p);
   }
 };
 
@@ -33,8 +44,8 @@ $('input').keypress(function(e){
         data = {}; // str, to
     $(this).val('');
 
-    if (str.length > 100) {
-      chat.render('err', 'error: input 100+ characters');
+    if (str.length > 150) {
+      chat.render('err', 'input 150+ characters');
       return
     }
 
@@ -43,10 +54,11 @@ $('input').keypress(function(e){
     if (matchArray) {
       var name = matchArray[0].replace(/\W/g, '');
       if (userList.indexOf(name) === -1 || name === 'per') {
-        chat.render('err', 'error: no such user');
+        chat.render('err', 'no such @user');
         return
       } else {
         data.to = name;
+        data.from = '/#' + socket.io.engine.id;        
       }
     }
 
@@ -54,7 +66,7 @@ $('input').keypress(function(e){
     if (/^\$username:\w+/.test(str)) {
       str = str.replace('$username:', '');
       if (str.length > 12) {
-        chat.render('err', 'error: username 12+ letters');
+        chat.render('err', 'username 12+ letters');
         return
       } else {
         socket.emit('setName', str);
@@ -78,10 +90,7 @@ socket.on('nameSet', function(name){
 
 socket.on('userList', function(data){
   userList = data;
-  $('.users .content').empty();
-  data.forEach(function(name){
-    $('.users .content').append('<p>' + name + '</p>');
-  });
+  users.render(data);
 });
 
 socket.on('userError', function(str){

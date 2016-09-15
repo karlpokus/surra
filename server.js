@@ -23,7 +23,7 @@ io.on('connection', function(socket){
 
   // max connections
   if (Object.keys(db).length > 100) {
-    io.to(socket.id).emit('userError', 'error: too many users');
+    io.to(socket.id).emit('userError', '100+ users');
     socket.disconnect();
   } else {
     db[socket.id] = 'per';
@@ -58,11 +58,12 @@ io.on('connection', function(socket){
   socket.on('pling', function(data){
     data.name = db[socket.id];
 
-    if (data.to) {
+    if (data.to && data.from) {
       var id = Object.keys(db).filter(function(k){
         return db[k] === data.to;
       });
       io.to(id).emit('plong', data);
+      io.to(data.from).emit('plong', data);
 
     } else {
       io.emit('plong', data);
