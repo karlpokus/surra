@@ -20,7 +20,7 @@ var io = require('socket.io')(server),
     db = {}; // id: name
 
 io.on('connection', function(socket){
-
+  
   // max connections
   if (Object.keys(db).length > 100) {
     io.to(socket.id).emit('userError', '100+ users');
@@ -29,8 +29,17 @@ io.on('connection', function(socket){
     db[socket.id] = 'per';
     io.emit('userList', userList(db));
     io.emit('fyi', 'per joined');
-  }
-
+  }  
+  
+  socket.on('reconnect', function() {
+    console.log('reconnect fired!'); // debug
+    
+    if (db[socket.id] && db[socket.id] !== 'per') {
+      io.to(socket.id).emit('nameSet', db[socket.id]);
+      io.to(socket.id).emit('userList', userList(db));
+    }  
+  });
+  
   socket.on('disconnect', function(){
     if (db[socket.id]) {
       var user = db[socket.id];
@@ -68,7 +77,7 @@ io.on('connection', function(socket){
     } else {
       io.emit('plong', data);
     }
-  });
+  });  
 });
 
 server.listen(port, function() {

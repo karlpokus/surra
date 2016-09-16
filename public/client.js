@@ -63,10 +63,13 @@ $('input').keypress(function(e){
     }
 
     // setName
-    if (/^\$username:\w+/.test(str)) {
+    if (/^\$username:/.test(str)) {
       str = str.replace('$username:', '');
       if (str.length > 12) {
         chat.render('err', 'username 12+ letters');
+        return
+      } else if (/\W/g.test(str)) {
+        chat.render('err', 'illegal characters in username');
         return
       } else {
         socket.emit('setName', str);
@@ -99,6 +102,10 @@ socket.on('userError', function(str){
 
 socket.on('fyi', function(str){
   chat.render('fyi', str);
+});
+
+socket.on("disconnect", function(){
+  user.render("");
 });
 
 // init
