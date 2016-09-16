@@ -16,10 +16,10 @@ input <= 150 chars
 ```
 
 # demo
-Coming up!
+[demo](https://surra.herokuapp.com/)
 
 # TODOs
-- [ ] demo on heroku
+- [x] demo
 - [x] private message from and to
 - [x] display updated userlist
 - [x] username
