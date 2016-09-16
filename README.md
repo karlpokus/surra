@@ -10,9 +10,9 @@ $username:username
 @username
 
 # rules
-username must be unique, <= 12 chars and only contain ASCII
+username must be unique, <= 12 chars and only contain word characters
 input <= 150 chars
-<= 100 users connected simultaniously
+<= 100 users connected simultaneously
 ```
 
 # demo
@@ -33,3 +33,9 @@ Coming up!
 - [ ] namespaces
 - [ ] ts med moments
 - [ ] only keep 100 inputs in dom
+- [x] update UI on reconnect
+- [x] update UI on disconnect
+- [x] enlarge input font-size on media query
+
+# licence
+MIT
