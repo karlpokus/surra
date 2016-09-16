@@ -1,11 +1,10 @@
 {
   "name": "surra",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "simple chat over websockets",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
   "engines": {
     "node": "*"
